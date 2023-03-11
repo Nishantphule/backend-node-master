@@ -18,13 +18,12 @@ async function createConnection() {
   await client.connect();
   console.log("Mongo is Connected");
   return client;
-}
+} 
 
 const client = await createConnection();
 
 app.use(express.json());
 
-// const books = [
 //   {
 //     id: "001",
 //     name: "Charlotte's web  Charlotte's ",
@@ -123,70 +122,68 @@ app.get("/", (req, res) => {
 
 //get all books
 app.get("/books", async (req, res) => {
-  const { language, rating } = req.query; //search query after ?
+  const { language, rating } = req.query; 
   console.log(req.query, language);
-  // let filteredBooks = books;
-  // if (language) {
-  //   filteredBooks = filteredBooks.filter((bk) => bk.language === language);
-  // }
-  // if (rating) {
-  //   filteredBooks = filteredBooks.filter((bk) => bk.rating === +rating);
-  // }
   if (req.query.rating) {
     req.query.rating = +req.query.rating;
   }
-  const books = await client
-    .db("b40-b39-we")
-    .collection("books")
-    .find(req.query)
-    .toArray();
+  const books = await getAllBooks(req);
   res.send(books);
 });
 
 //get books by ID
 app.get("/books/:id", async (req, res) => {
-  //console.log(req.params);
   const { id } = req.params;
-  console.log(id);
-  //db.books.findOne({id: "002"})
-  const book = await client
-    .db("b40-b39-we")
-    .collection("books")
-    .findOne({ id: id });
+  console.log(id);               
+  const book = await getBookById(id);
   book ? res.send(book) : res.status(404).send({ message: "No Book found" });
 });
 
 //delete book ID
 app.delete("/books/:id", async (req, res) => {
-  //console.log(req.params);
   const { id } = req.params;
   console.log(id);
-  //db.books.deleteOne({id: "002"})
-  const book = await client
-    .db("b40-b39-we")
-    .collection("books")
-    .deleteOne({ id: id });
+  const book = await deleteBookById(id);
   res.send(book);
 });
 
 //add books
 
 app.post("/books", async (req, res) => {
-  //console.log(req.params);
   const newBooks = req.body;
   console.log(newBooks);
-  //db.books.deleteOne({id: "002"})
-  const result = await client
+  const result = await createBook(newBooks);
+  res.send(result); 
+});
+ 
+app.listen(PORT, () => console.log("Server started on PORT ", PORT));
+
+
+async function createBook(newBooks) {
+  return await client
     .db("b40-b39-we")
     .collection("books")
     .insertMany(newBooks);
-  res.send(result);
-});
+}
 
-app.listen(PORT, () => console.log("Server started on PORT ", PORT));
+async function deleteBookById(id) {
+  return await client
+    .db("b40-b39-we")
+    .collection("books")
+    .deleteOne({ id: id });
+}
 
-//CRUD     -  HTTP methods
-// C - CREATE -  POST -   insert, add, create
-// R - READ   -  GET  -   get, read which is already available
-// U - UPDATE -  PUT  -   edit, update
-// D - DELETE -  DELETE  - delete
+async function getBookById(id) {
+  return await client
+    .db("b40-b39-we")
+    .collection("books")
+    .findOne({ id: id });
+}
+
+async function getAllBooks(req) {
+  return await client
+    .db("b40-b39-we")
+    .collection("books")
+    .find(req.query)
+    .toArray();
+}
