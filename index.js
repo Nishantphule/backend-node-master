@@ -5,7 +5,7 @@ import { MongoClient } from "mongodb";
 import dotenv from "dotenv";
 import { bookRouter } from "./routes/books.js";
 import { userRouter } from "./routes/users.js";
-import bcrypt from 'bcrypt'
+import { movieRouter } from "./routes/movies.js";
 
 dotenv.config();
 // console.log(process.env)
@@ -29,37 +29,18 @@ app.use(express.json());
 
 
 app.get("/", (req, res) => {
-  res.send("Hello Everyone🥳🥳🥳🥳");
+  res.send("🙋‍♂️, 🌏 🎊✨🤩");
 });
 
 
 app.use("/books", bookRouter)
 app.use("/users", userRouter)
+app.use("/movies",movieRouter)
 
 app.listen(PORT, () => console.log("Server started on PORT ", PORT));
 
 
 
-export async function genPass(password){
-  const salt = await bcrypt.genSalt(10)
-  const hashedPass = await bcrypt.hash(password,salt)
-  return hashedPass
-}
-
-// console.log(genPass("passwoed@123"))
 
 
-export async function createUser(username,hashedPassword) {
-  return await client
-      .db("b40-b39-we")
-      .collection("users")
-      .insertOne({username:username,hashedPassword:hashedPassword});
-}
 
-export async function getAllUsers(req) {
-  return await client
-      .db("b40-b39-we")
-      .collection("users")
-      .find(req.query)
-      .toArray();
-}
