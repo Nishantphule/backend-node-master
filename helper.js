@@ -1,6 +1,7 @@
 import { client } from "./index.js";
 import bcrypt from 'bcrypt'
 
+// BOOKS
 export async function createBook(newBooks) {
     return await client
         .db("b40-b39-we")
@@ -35,31 +36,31 @@ export async function updateBook(id, data) {
 
 
 // USERS
-export async function genPass(password){
+export async function genPass(password) {
     const salt = await bcrypt.genSalt(10)
-    const hashedPass = await bcrypt.hash(password,salt)
+    const hashedPass = await bcrypt.hash(password, salt)
     return hashedPass
-  }
-  
-  // console.log(genPass("passwoed@123"))
+}
 
-export async function createUser(username,hashedPassword) {
+// console.log(genPass("passwoed@123"))
+
+export async function createUser(username, hashedPassword) {
     return await client
         .db("b40-b39-we")
         .collection("users")
-        .insertOne({username:username,hashedPassword:hashedPassword});
-  }
-  
-  export async function getAllUsers(req) {
+        .insertOne({ username: username, hashedPassword: hashedPassword });
+}
+
+export async function getAllUsers(req) {
     return await client
         .db("b40-b39-we")
         .collection("users")
         .find(req.query)
         .toArray();
-  }
-  
-  
-  
+}
+
+
+
 // MOVIES
 export async function updateMovie(id, data) {
     return await client.db("b39we")

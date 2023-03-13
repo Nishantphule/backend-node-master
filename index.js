@@ -6,6 +6,7 @@ import dotenv from "dotenv";
 import { bookRouter } from "./routes/books.js";
 import { userRouter } from "./routes/users.js";
 import { movieRouter } from "./routes/movies.js";
+import cors from "cors"
 
 dotenv.config();
 // console.log(process.env)
@@ -26,7 +27,7 @@ async function createConnection() {
 export const client = await createConnection();
 
 app.use(express.json());
-
+app.use(cors());
 
 app.get("/", (req, res) => {
   res.send("🙋‍♂️, 🌏 🎊✨🤩");
