@@ -1,3 +1,4 @@
+import { ObjectId } from 'mongodb';
 import { client } from "./index.js";
 import bcrypt from 'bcrypt'
 
@@ -12,13 +13,13 @@ export async function deleteBookById(id) {
     return await client
         .db("b40-b39-we")
         .collection("books")
-        .deleteOne({ _id: id });
+        .deleteOne({  _id:new ObjectId(id) });
 }
 export async function getBookById(id) {
     return await client
         .db("b40-b39-we")
         .collection("books")
-        .findOne({ _id: id });
+        .findOne({ _id: new ObjectId(id) });
 }
 export async function getAllBooks(req) {
     return await client
@@ -30,10 +31,10 @@ export async function getAllBooks(req) {
 export async function updateBook(id, data) {
     return await client.db("b40-b39-we")
         .collection("books")
-        .updateOne({ _id: id }, { $set: data });
+        .updateOne({ _id:new ObjectId(id) }, { $set: data });
 }
 
-
+ 
 
 // USERS
 export async function genPass(password) {
@@ -65,11 +66,11 @@ export async function getAllUsers(req) {
 export async function updateMovie(id, data) {
     return await client.db("b39we")
         .collection("movies")
-        .updateOne({ _id: id }, { $set: data });
+        .updateOne({ _id:new ObjectId(id) }, { $set: data });
 }
 
 export async function deleteMovieById(id) {
-    return await client.db("b39we").collection("movies").deleteOne({ _id: id });
+    return await client.db("b39we").collection("movies").deleteOne({ _id:new ObjectId(id) });
 }
 
 export async function createMovie(data) {
@@ -77,7 +78,7 @@ export async function createMovie(data) {
 }
 
 export async function getMovieById(id) {
-    return await client.db("b39we").collection("movies").findOne({ _id: id });
+    return await client.db("b39we").collection("movies").findOne({ _id:new ObjectId(id) });
 }
 
 export async function getAllMovies() {
