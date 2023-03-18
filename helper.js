@@ -45,11 +45,11 @@ export async function genPass(password) {
 
 // console.log(genPass("passwoed@123"))
 
-export async function createUser(username, hashedPassword) {
+export async function createUser(username, password) {
     return await client
         .db("b40-b39-we")
         .collection("users")
-        .insertOne({ username: username, hashedPassword: hashedPassword });
+        .insertOne({ username: username, password: password });
 }
 
 export async function getAllUsers(req) {
@@ -58,6 +58,13 @@ export async function getAllUsers(req) {
         .collection("users")
         .find(req.query)
         .toArray();
+}
+
+export async function getUserByName(username) {
+    return await client
+        .db("b40-b39-we")
+        .collection("users")
+        .findOne({username:username})
 }
 
 

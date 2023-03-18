@@ -1,13 +1,14 @@
 import { getAllBooks, getBookById, deleteBookById, createBook,updateBook } from "../helper.js";
 import express from "express";
+import { auth } from "../middleware/auth.js";
 
 
 const router = express.Router();
 
 //get all books
-router.get("/", async (req, res) => {
+router.get("/",auth, async (req, res) => {
     const { language, rating } = req.query;
-    console.log(req.query, language);
+    // console.log(req.query, language);
     if (req.query.rating) {
         req.query.rating = +req.query.rating;
     }
