@@ -19,7 +19,7 @@ router.get("/", async (req, res) => {
 
 // create user
 router.post("/signup", express.json(), async (req, res) => {
-    const { username , password} = req.body
+    const { username , password, email} = req.body
     const userFromDB = await getUserByName(username)
 
     if(userFromDB){
@@ -37,7 +37,7 @@ router.post("/signup", express.json(), async (req, res) => {
     }
     else{
     const hashedPassword =  await genPass(password)
-    const users = await createUser(username , hashedPassword)
+    const users = await createUser(username , hashedPassword, email)
     res.send({"message":"Successful Signup",users:users}) 
     }   
 });
