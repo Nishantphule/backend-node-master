@@ -6,7 +6,7 @@ import { auth } from "../middleware/auth.js";
 const router = express.Router();
 
 //get all books
-router.get("/", async (req, res) => {
+router.get("/",auth, async (req, res) => {
     const { language, rating } = req.query;
     // console.log(req.query, language);
     if (req.query.rating) {
