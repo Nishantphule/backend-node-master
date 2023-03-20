@@ -1,5 +1,7 @@
 import express from "express";
 import { getAllMovies,getMovieById,createMovie,deleteMovieById,updateMovie } from "../helper.js";
+import { auth } from "../middleware/auth.js";
+
 const router = express.Router();
 
 // get all movies
@@ -20,7 +22,7 @@ router.get("/:id", async function (request, response) {
 
 
 // create movie 
-router.post("/", express.json(), async function (request, response) {
+router.post("/",auth, express.json(), async function (request, response) {
     const data = request.body;
     const result = await createMovie(data)
     response.send(result)

@@ -33,7 +33,7 @@ router.delete("/:id", async (req, res) => {
 });
 
 //add books
-router.post("/", express.json(), async (req, res) => {
+router.post("/",auth, express.json(), async (req, res) => {
     const newBooks = req.body;
     console.log(newBooks);
     const result = await createBook(newBooks);
