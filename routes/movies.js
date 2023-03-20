@@ -3,7 +3,7 @@ import { getAllMovies,getMovieById,createMovie,deleteMovieById,updateMovie } fro
 const router = express.Router();
 
 // get all movies
-router.get("/", async function (request, response) {
+router.get("/",auth, async function (request, response) {
     const movies = await getAllMovies()
     response.send(movies);
 });
