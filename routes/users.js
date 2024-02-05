@@ -50,7 +50,7 @@ router.post("/login", express.json(), async (req, res) => {
   const userFromDB = await getUserByName(username)
 
   if (!userFromDB) {
-    res.status(400).send({ "message": "Invalid Credentials" })
+    res.status(400).send({ message: "Invalid Credentials" })
   }
   else {
     const storedPassword = userFromDB.password;
@@ -61,7 +61,7 @@ router.post("/login", express.json(), async (req, res) => {
       res.send({ "message": "Successful Login", token: token })
     }
     else {
-      res.send({ "message": "Invalid Credentials" })
+      res.send({ message: "Invalid Credentials" })
     }
   }
 });
