@@ -13,7 +13,7 @@ export async function deleteBookById(id) {
     return await client
         .db("b40-b39-we")
         .collection("books")
-        .deleteOne({  _id:new ObjectId(id) });
+        .deleteOne({ _id: new ObjectId(id) });
 }
 export async function getBookById(id) {
     return await client
@@ -31,10 +31,10 @@ export async function getAllBooks(req) {
 export async function updateBook(id, data) {
     return await client.db("b40-b39-we")
         .collection("books")
-        .updateOne({ _id:new ObjectId(id) }, { $set: data });
+        .updateOne({ _id: new ObjectId(id) }, { $set: data });
 }
 
- 
+
 
 // USERS
 export async function genPass(password) {
@@ -49,7 +49,7 @@ export async function createUser(username, password, email) {
     return await client
         .db("b40-b39-we")
         .collection("users")
-        .insertOne({ username: username, password: password, email:email });
+        .insertOne({ username: username, password: password, email: email });
 }
 
 export async function getAllUsers(req) {
@@ -64,7 +64,7 @@ export async function getUserByName(username) {
     return await client
         .db("b40-b39-we")
         .collection("users")
-        .findOne({username:username})
+        .findOne({ username: username })
 }
 
 
@@ -73,11 +73,11 @@ export async function getUserByName(username) {
 export async function updateMovie(id, data) {
     return await client.db("b39we")
         .collection("movies")
-        .updateOne({ _id:new ObjectId(id) }, { $set: data });
+        .updateOne({ _id: new ObjectId(id) }, { $set: data });
 }
 
 export async function deleteMovieById(id) {
-    return await client.db("b39we").collection("movies").deleteOne({ _id:new ObjectId(id) });
+    return await client.db("b39we").collection("movies").deleteOne({ _id: new ObjectId(id) });
 }
 
 export async function createMovie(data) {
@@ -85,9 +85,10 @@ export async function createMovie(data) {
 }
 
 export async function getMovieById(id) {
-    return await client.db("b39we").collection("movies").findOne({ _id:new ObjectId(id) });
+    return await client.db("b39we").collection("movies").findOne({ _id: new ObjectId(id) });
 }
 
 export async function getAllMovies() {
-    return await client.db("b39we").collection("movies").find({}).toArray();
+    return await client.db("b39we").collection("movies").find()
+        .toArray();
 }

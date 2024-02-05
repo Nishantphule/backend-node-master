@@ -54,6 +54,6 @@ router.put("/:id", express.json(), async function (request, response) {
 });
 
 
-export const movieRouter = router
+export const movieRouter = router;
 
 

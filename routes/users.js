@@ -66,4 +66,4 @@ router.post("/login", express.json(), async (req, res) => {
   }
 });
 
-export const userRouter = router
+export const userRouter = router;

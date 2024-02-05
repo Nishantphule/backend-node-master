@@ -27,9 +27,9 @@ router.get("/:id", async (req, res) => {
 //delete book ID
 router.delete("/:id", async (req, res) => {
     const { id } = req.params;
-    console.log(id);
+    console.log(id)
     const book = await deleteBookById(id);
-    res.send(book);
+    res.send(book)
 });
 
 //add books
@@ -54,6 +54,6 @@ router.put("/:id", express.json(), async function (request, response) {
         : response.status(404).send({ message: "Book not found" })
 });
 
-export const bookRouter = router
+export const bookRouter = router;
 
 
